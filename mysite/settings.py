@@ -31,7 +31,7 @@ env.read_env(os.path.join(BASE_DIR, ".env"))
 # SECRET_KEY = 'django-insecure-hkje3z%jjv6dld(s%c2i78^f1p4nvkhlc26f^89dobqk^l+9ia'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'django-render-6d7h.onrender.com']
 
@@ -137,7 +137,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = str(BASE_DIR / "staticfiles")
 # 以下を追加
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
