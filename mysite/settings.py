@@ -19,6 +19,10 @@ from dj_database_url import parse as dburl
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Set env variable
+env = environ.Env()
+env.read_env(os.path.join(BASE_DIR, ".env"))
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -46,6 +50,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -88,7 +93,10 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 import dj_database_url
 # ~省略~
 default_dburl = "sqlite:///" + str(BASE_DIR / "db.sqlite3")
-DATABASES = {'default': dj_database_url.config(default=default_dburl)}
+DATABASES = {
+    "default": config("DATABASE_URL", default=default_dburl, cast=dburl),
+}
+# DATABASES = {'default': dj_database_url.config(default=default_dburl)}
 # postgresqlを設定する場合の書式は、postgresql://user_name:password@localhost:port/database_name（以下では、既存のものを書籍に当てはめている）
 # DATABASES = {'default': dj_database_url.parse('postgresql://postgres:password1@localhost:5432/appdb')}
 
